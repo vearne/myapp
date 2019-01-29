@@ -1,0 +1,68 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<!-- 新 Bootstrap 核心 CSS 文件 -->
+	<link rel="stylesheet" href="http://up.xiaorui.cc:9001/static/bootstrap.min.css">
+
+	<!-- 可选的Bootstrap主题文件（一般不用引入） -->
+	<link rel="stylesheet" href="http://up.xiaorui.cc:9001/static/bootstrap-theme.min.css">
+    <style type="text/css">
+            body {
+                padding-left: 20px;
+            }
+    </style>
+
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="http://up.xiaorui.cc:9001/static/jquery.min.js"></script>
+
+	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<script src="http://up.xiaorui.cc:9001/static/bootstrap.min.js"></script>
+	<script >
+		function ip2integer(){
+            var value = $.trim($("#ip").val());
+            var data = JSON.stringify({"ip":value});
+            $.post("/api/ip", data, function(result){
+                $("#integer").val(result.integer);
+            }, "json");
+            
+		}
+		function integer2ip(){
+            var value = $.trim($("#integer").val());
+            value = parseInt(value);
+            var data = JSON.stringify({"integer": value});
+            $.post("/api/ip", data, function(result){
+                $("#ip").val(result.ip);
+            }, "json");
+		}
+	</script>
+</head>
+<body>
+<table>
+<tr>
+	<th><div>待转换的IP
+        <div>格式形如 "192.168.1.100"</div> 
+    </th>
+	<th>
+        <div>待转换的整数</div> 
+        <div> 范围应该是 0 ~ 4294967295 </div>
+    </th>
+</tr>
+<tr>
+	<td>
+		<textarea id="ip" rows="10" cols="40"></textarea>
+	</td>
+	<td>
+		<textarea id="integer" rows="10" cols="40"></textarea>
+	</td>
+</tr>
+<tr>
+	<td>
+	<button class="btn btn-primary" onclick="javascript:ip2integer();" style="margin-bottom:10px;">IP转换为整数<i class="icon-chevron-right icon-white"></i></button>
+	</td>
+	<td>
+	<button class="btn btn-primary" onclick="javascript:integer2ip();" style="margin-bottom:10px;">整数转换为IP<i class="icon-chevron-right icon-white"></i></button>
+	</td>
+</tr>
+</table>
+</body>
+</html>
